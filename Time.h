@@ -8,18 +8,26 @@
 #ifndef TIME_H
 #define TIME_H
 
+#include <ncurses.h>
+
 // Class 
 class Time {
   public:
     Time();
-    virtual void print() = 0;
+    virtual void draw(WINDOW *win) = 0;
     void updateTime();
+    int getYear();
+    int getMonth();
+    int getDay();
     int getHours();
     int getMinutes();
     int getSeconds();
     int getUnixTime();
 
   private:
+    int year;
+    int month;
+    int day;
     int hours;
     int minutes;
     int seconds;

@@ -17,6 +17,7 @@ Clock::Clock() {
 };
 
 void Clock::draw(WINDOW *win) {
+  updateTime();
   const int start = 2;
   int position = start;
 
@@ -33,10 +34,13 @@ void Clock::draw(WINDOW *win) {
       int digit = i + 1;
 
       if (i > 2 && i < 5) {
-        digit-=1;
+       digit-=1;
       } else if (i >=5) {
         digit-=2;
       }
+
+
+      mvwprintw(win, 0, 1, "Current Time");
       mvwprintw(win, 1, position , getAscii("number", getPositionValue(digit), 1).c_str());
       mvwprintw(win, 2, position , getAscii("number", getPositionValue(digit), 2).c_str());
       mvwprintw(win, 3, position , getAscii("number", getPositionValue(digit), 3).c_str());
@@ -48,16 +52,7 @@ void Clock::draw(WINDOW *win) {
   }
 
   wrefresh(win);
-  //wgetch(win);
 
-}
-
-void Clock::print() {
-  cout << getAscii("number", positionOne, 1) << "  " << getAscii("number", positionTwo, 1) << "    " << getAscii("number", positionThree, 1) << "  " << getAscii("number", positionFour, 1) << "    " << getAscii("number", positionFive, 1) << "  " << getAscii("number", positionSix, 1)<< "\n";
-  cout << getAscii("number", positionOne, 2) << "  " << getAscii("number", positionTwo, 2) << " [] " << getAscii("number", positionThree, 2) << "  " << getAscii("number", positionFour, 2) << " [] " << getAscii("number", positionFive, 2) << "  " << getAscii("number", positionSix, 2) <<"\n";
-  cout << getAscii("number", positionOne, 3) << "  " << getAscii("number", positionTwo, 3) << "    " << getAscii("number", positionThree, 3) << "  " << getAscii("number", positionFour, 3) << "    " << getAscii("number", positionFive, 3) << "  " << getAscii("number", positionSix, 3) <<"\n";
-  cout << getAscii("number", positionOne, 4) << "  " << getAscii("number", positionTwo, 4) << " [] " << getAscii("number", positionThree, 4) << "  " << getAscii("number", positionFour, 4) << " [] " << getAscii("number", positionFive, 4) << "  " << getAscii("number", positionSix, 4) <<"\n";
-  cout << getAscii("number", positionOne, 5) << "  " << getAscii("number", positionTwo, 5) << "    " << getAscii("number", positionThree, 5) << "  " << getAscii("number", positionFour, 5) << "    " << getAscii("number", positionFive, 5) << "  " << getAscii("number", positionSix, 5) <<"\n";
 }
 
 string Clock::getAscii(string type, int value, int line) {

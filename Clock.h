@@ -18,7 +18,6 @@ class Clock: public Time, public Numbers {
   public:
     Clock();
     void draw(WINDOW *win);
-    void print();
     void update();
 
   private:

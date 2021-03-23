@@ -6,6 +6,7 @@
 // File: Progress.cpp
 
 #include <iostream>
+#include <ncurses.h>
 
 #include "Progress.h"
 
@@ -17,30 +18,80 @@ Progress::Progress() {
   tm start;
   tm end;
 
-  start.tm_sec = 0;  
-  start.tm_min = 0;  
-  start.tm_hour = 0;  
-  start.tm_mday = 21;  
-  start.tm_mon = 2;  
-  start.tm_year = 2021 - 1900;  
+  start.tm_sec = 0;
+  start.tm_min = 0;
+  start.tm_hour = 9;
+  start.tm_mday = getDay();
+  start.tm_mon = getMonth();
+  start.tm_year = getYear();
 
   startUnixTime = mktime(&start);
 
-  end.tm_sec = 59;  
-  end.tm_min = 59;  
-  end.tm_hour = 23;  
-  end.tm_mday = 21;  
-  end.tm_mon = 2;  
-  end.tm_year = 2021 - 1900;  
+  end.tm_sec = 0;
+  end.tm_min = 0;
+  end.tm_hour = 18;
+  end.tm_mday = getDay();
+  end.tm_mon = getMonth();
+  end.tm_year = getYear();
 
   endUnixTime = mktime(&end);
 
 };
 
-void Progress::print() {
+void Progress::draw(WINDOW *win) {
   updateTime();
-
   float progress = (float)(getUnixTime() - startUnixTime) / (float)(endUnixTime - startUnixTime);
+  // cout << "start " << startUnixTime << endl;
+  // cout << "end " << endUnixTime << endl;
+  // cout << "current " << getUnixTime() << endl;
+  // cout << "get month " << getMonth() << endl;
+  // cout << "get year " << getYear() << endl;
+  // cout << "get day " << getDay() << endl;
+  int rounded = (int)round(progress * 100);
+  string progressString = to_string(rounded);
+  string decimalString = to_string(progress * 100);
 
-  cout << "Progress: " << progress * 100 << "%" << endl;
+  // mvwprintw(win, 0, 0, decimalString.c_str());
+  mvwprintw(win, 0, 1, "Today's Progress");
+  int position = 2;
+  int rise = 0;
+  if (rounded / 100 %10 != 0) {
+    mvwprintw(win, rise + 1, position, getAscii("number", rounded / 100 %10, 1).c_str());
+    mvwprintw(win, rise + 2, position, getAscii("number", rounded / 100 %10, 2).c_str());
+    mvwprintw(win, rise + 3, position, getAscii("number", rounded / 100 %10, 3).c_str());
+    mvwprintw(win, rise + 4, position, getAscii("number", rounded / 100 %10, 4).c_str());
+    mvwprintw(win, rise + 5, position, getAscii("number", rounded / 100 %10, 5).c_str());
+
+    position += 7;
+  }
+
+  mvwprintw(win, rise + 1, position, getAscii("number", rounded / 10 %10, 1).c_str());
+  mvwprintw(win, rise + 2, position, getAscii("number", rounded / 10 %10, 2).c_str());
+  mvwprintw(win, rise + 3, position, getAscii("number", rounded / 10 %10, 3).c_str());
+  mvwprintw(win, rise + 4, position, getAscii("number", rounded / 10 %10, 4).c_str());
+  mvwprintw(win, rise + 5, position, getAscii("number", rounded / 10 %10, 5).c_str());
+
+  position += 7;
+  mvwprintw(win, rise + 1, position, getAscii("number", rounded %10, 1).c_str());
+  mvwprintw(win, rise + 2, position, getAscii("number", rounded %10, 2).c_str());
+  mvwprintw(win, rise + 3, position, getAscii("number", rounded %10, 3).c_str());
+  mvwprintw(win, rise + 4, position, getAscii("number", rounded %10, 4).c_str());
+  mvwprintw(win, rise + 5, position, getAscii("number", rounded %10, 5).c_str());
+
+  position += 7;
+  mvwprintw(win, rise + 2, position, "() /");
+  mvwprintw(win, rise + 3, position, "  / ");
+  mvwprintw(win, rise + 4, position, " /  ");
+  mvwprintw(win, rise + 5, position, "/ ()");
+
+
+  wrefresh(win);
+}
+
+string Progress::getAscii(string type, int value, int line) {
+  if (type == "number") {
+    return getAsciiNumber(value, line);
+  } else {
+    return getAsciiNumber(0, 0);
+  }
 }

@@ -16,7 +16,6 @@
 
 using namespace std;
 
-Progress Progress;
 
 int main() {
   initscr();
@@ -26,35 +25,26 @@ int main() {
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
 
-  WINDOW *win = newwin(7, 55, 2, xMax/3);
+  int width = 55;
+  int start = xMax * .25;
+  WINDOW *clockWin = newwin(7, width, 2, start);
+  WINDOW *progressWin = newwin(7, 30, 2, width + start + 5);
 
   Clock Clock;
+  Progress Progress;
 
   refresh();
-  box(win, 0, 0);
+  box(clockWin, 0, 0);
+  box(progressWin, 0, 0);
 
   while (true) {
     Clock.update();
-    Clock.draw(win);
-    wrefresh(win);
-
-    // cout << Clock.getUnixTime() << endl;
-
-    // Clock.print();
-
-    //Progress.print();
-
-//    float ct = ((Time.getHours() * 100) + Time.getMinutes());
-//    float st = 1900;
-//    float et = 2000;
-////1-((1945-1930)/(1945-1800))
-//    cout << ct << " " << (((et - ct) /(et-st))) << "%" << endl;
+    Clock.draw(clockWin);
+    Progress.draw(progressWin);
 
     // sleep
     std::chrono::milliseconds timespan(1000);
     std::this_thread::sleep_for(timespan);
-
-    //clear();
   }
 
   endwin();
