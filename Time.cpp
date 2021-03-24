@@ -27,6 +27,20 @@ void Time::updateTime() {
   hours = ltm->tm_hour;
   minutes = ltm->tm_min;
   seconds = ltm->tm_sec;
+
+  calculateTimeOfDay();
+}
+
+void Time::calculateTimeOfDay() {
+  if (hours >= 5 && hours < 12) {
+    timeOfDay = "Morning";
+  } else if (hours >= 12 && hours < 17) {
+    timeOfDay = "Afternoon";
+  } else if ((hours >= 17 && hours < 24) || (hours >= 0 && hours < 5)) {
+    timeOfDay = "Evening";
+  } else {
+    timeOfDay = "Day";
+  }
 }
 
 int Time::getYear() {
@@ -62,4 +76,9 @@ int Time::getSeconds() {
 int Time::getUnixTime() {
 
   return unixTime;
+}
+
+string Time::getTimeOfDay() {
+
+  return timeOfDay;
 }

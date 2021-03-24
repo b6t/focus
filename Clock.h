@@ -10,15 +10,13 @@
 #ifndef CLOCK_H
 #define CLOCK_H
 
-#include "Time.h"
-#include "Numbers.h"
+#include "Component.h"
 
 // Class 
-class Clock: public Time, public Numbers {
+class Clock: public Component {
   public:
-    Clock();
-    void draw(WINDOW *win);
-    void update();
+    Clock(string title, int height, int width, int verticalPos, int horizontalPos, bool outline);
+    void draw();
 
   private:
     int positionOne;
@@ -27,9 +25,11 @@ class Clock: public Time, public Numbers {
     int positionFour;
     int positionFive;
     int positionSix;
+    string _title;
 
     string getAscii(string type, int value, int line);
     int getPositionValue(int position);
+    void update();
 };
 
 #endif
