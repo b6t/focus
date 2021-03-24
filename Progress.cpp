@@ -12,9 +12,8 @@
 
 using namespace std;
 
-Progress::Progress() {
-  updateTime();
 
+Progress::Progress(int height, int width, int verticalPos, int horizontalPos, bool outline) : Component(height, width, verticalPos, horizontalPos, outline) {
   tm start;
   tm end;
 
@@ -35,10 +34,10 @@ Progress::Progress() {
   end.tm_year = getYear();
 
   endUnixTime = mktime(&end);
-
 };
 
-void Progress::draw(WINDOW *win) {
+void Progress::draw() {
+  WINDOW *compWin = getWin();
   updateTime();
   float progress = (float)(getUnixTime() - startUnixTime) / (float)(endUnixTime - startUnixTime);
   // cout << "start " << startUnixTime << endl;
@@ -52,40 +51,40 @@ void Progress::draw(WINDOW *win) {
   string decimalString = to_string(progress * 100);
 
   // mvwprintw(win, 0, 0, decimalString.c_str());
-  mvwprintw(win, 0, 1, "Today's Progress");
+  mvwprintw(compWin, 0, 1, "Today's Progress");
   int position = 2;
   int rise = 0;
   if (rounded / 100 %10 != 0) {
-    mvwprintw(win, rise + 1, position, getAscii("number", rounded / 100 %10, 1).c_str());
-    mvwprintw(win, rise + 2, position, getAscii("number", rounded / 100 %10, 2).c_str());
-    mvwprintw(win, rise + 3, position, getAscii("number", rounded / 100 %10, 3).c_str());
-    mvwprintw(win, rise + 4, position, getAscii("number", rounded / 100 %10, 4).c_str());
-    mvwprintw(win, rise + 5, position, getAscii("number", rounded / 100 %10, 5).c_str());
+    mvwprintw(compWin, rise + 1, position, getAscii("number", rounded / 100 %10, 1).c_str());
+    mvwprintw(compWin, rise + 2, position, getAscii("number", rounded / 100 %10, 2).c_str());
+    mvwprintw(compWin, rise + 3, position, getAscii("number", rounded / 100 %10, 3).c_str());
+    mvwprintw(compWin, rise + 4, position, getAscii("number", rounded / 100 %10, 4).c_str());
+    mvwprintw(compWin, rise + 5, position, getAscii("number", rounded / 100 %10, 5).c_str());
 
     position += 7;
   }
 
-  mvwprintw(win, rise + 1, position, getAscii("number", rounded / 10 %10, 1).c_str());
-  mvwprintw(win, rise + 2, position, getAscii("number", rounded / 10 %10, 2).c_str());
-  mvwprintw(win, rise + 3, position, getAscii("number", rounded / 10 %10, 3).c_str());
-  mvwprintw(win, rise + 4, position, getAscii("number", rounded / 10 %10, 4).c_str());
-  mvwprintw(win, rise + 5, position, getAscii("number", rounded / 10 %10, 5).c_str());
+  mvwprintw(compWin, rise + 1, position, getAscii("number", rounded / 10 %10, 1).c_str());
+  mvwprintw(compWin, rise + 2, position, getAscii("number", rounded / 10 %10, 2).c_str());
+  mvwprintw(compWin, rise + 3, position, getAscii("number", rounded / 10 %10, 3).c_str());
+  mvwprintw(compWin, rise + 4, position, getAscii("number", rounded / 10 %10, 4).c_str());
+  mvwprintw(compWin, rise + 5, position, getAscii("number", rounded / 10 %10, 5).c_str());
 
   position += 7;
-  mvwprintw(win, rise + 1, position, getAscii("number", rounded %10, 1).c_str());
-  mvwprintw(win, rise + 2, position, getAscii("number", rounded %10, 2).c_str());
-  mvwprintw(win, rise + 3, position, getAscii("number", rounded %10, 3).c_str());
-  mvwprintw(win, rise + 4, position, getAscii("number", rounded %10, 4).c_str());
-  mvwprintw(win, rise + 5, position, getAscii("number", rounded %10, 5).c_str());
+  mvwprintw(compWin, rise + 1, position, getAscii("number", rounded %10, 1).c_str());
+  mvwprintw(compWin, rise + 2, position, getAscii("number", rounded %10, 2).c_str());
+  mvwprintw(compWin, rise + 3, position, getAscii("number", rounded %10, 3).c_str());
+  mvwprintw(compWin, rise + 4, position, getAscii("number", rounded %10, 4).c_str());
+  mvwprintw(compWin, rise + 5, position, getAscii("number", rounded %10, 5).c_str());
 
   position += 7;
-  mvwprintw(win, rise + 2, position, "() /");
-  mvwprintw(win, rise + 3, position, "  / ");
-  mvwprintw(win, rise + 4, position, " /  ");
-  mvwprintw(win, rise + 5, position, "/ ()");
+  mvwprintw(compWin, rise + 2, position, "() /");
+  mvwprintw(compWin, rise + 3, position, "  / ");
+  mvwprintw(compWin, rise + 4, position, " /  ");
+  mvwprintw(compWin, rise + 5, position, "/ ()");
 
 
-  wrefresh(win);
+  wrefresh(compWin);
 }
 
 string Progress::getAscii(string type, int value, int line) {

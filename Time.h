@@ -8,13 +8,16 @@
 #ifndef TIME_H
 #define TIME_H
 
+#include <iostream>
+
 #include <ncurses.h>
+
+using namespace std;
 
 // Class 
 class Time {
   public:
     Time();
-    virtual void draw(WINDOW *win) = 0;
     void updateTime();
     int getYear();
     int getMonth();
@@ -23,6 +26,7 @@ class Time {
     int getMinutes();
     int getSeconds();
     int getUnixTime();
+    string getTimeOfDay();
 
   private:
     int year;
@@ -32,6 +36,8 @@ class Time {
     int minutes;
     int seconds;
     int unixTime;
+    string timeOfDay;
+    void calculateTimeOfDay();
 };
 
 #endif

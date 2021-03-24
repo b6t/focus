@@ -10,17 +10,15 @@
 
 #include <ncurses.h>
 
-#include "Numbers.h"
-#include "Time.h"
+#include "Component.h"
 
 // Class 
-class Progress: public Time, public Numbers {
+class Progress: public Component {
   public:
-    Progress();
-    void draw(WINDOW *win);
+    Progress(int height, int width, int verticalPos, int horizontalPos, bool outline);
+    void draw();
 
   private:
-
     string getAscii(string type, int value, int line);
     time_t endUnixTime;
     time_t startUnixTime;

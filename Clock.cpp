@@ -8,26 +8,26 @@
 #include <iostream>
 #include <ncurses.h>
 
+#include "Component.h"
 #include "Clock.h"
 
 using namespace std;
 
-Clock::Clock() {
-  update();
-};
+Clock::Clock(int height, int width, int verticalPos, int horizontalPos, bool outline) : Component(height, width, verticalPos, horizontalPos, outline) {};
 
-void Clock::draw(WINDOW *win) {
-  updateTime();
+void Clock::draw() {
+  WINDOW *compWin = getWin();
+  update();
   const int start = 2;
   int position = start;
 
   for (int i = 0; i <= 7; i++) {
     if (i == 2 || i == 5) {
-      mvwprintw(win, 1, position , "    ");
-      mvwprintw(win, 2, position , " [] ");
-      mvwprintw(win, 3, position , "    ");
-      mvwprintw(win, 4, position , " [] ");
-      mvwprintw(win, 5, position , "    ");
+      mvwprintw(compWin, 1, position , "    ");
+      mvwprintw(compWin, 2, position , " [] ");
+      mvwprintw(compWin, 3, position , "    ");
+      mvwprintw(compWin, 4, position , " [] ");
+      mvwprintw(compWin, 5, position , "    ");
 
       position = position + 5;
     } else {
@@ -39,20 +39,18 @@ void Clock::draw(WINDOW *win) {
         digit-=2;
       }
 
-
-      mvwprintw(win, 0, 1, "Current Time");
-      mvwprintw(win, 1, position , getAscii("number", getPositionValue(digit), 1).c_str());
-      mvwprintw(win, 2, position , getAscii("number", getPositionValue(digit), 2).c_str());
-      mvwprintw(win, 3, position , getAscii("number", getPositionValue(digit), 3).c_str());
-      mvwprintw(win, 4, position , getAscii("number", getPositionValue(digit), 4).c_str());
-      mvwprintw(win, 5, position , getAscii("number", getPositionValue(digit), 5).c_str());
+      mvwprintw(compWin, 0, 1, "Current Time");
+      mvwprintw(compWin, 1, position , getAscii("number", getPositionValue(digit), 1).c_str());
+      mvwprintw(compWin, 2, position , getAscii("number", getPositionValue(digit), 2).c_str());
+      mvwprintw(compWin, 3, position , getAscii("number", getPositionValue(digit), 3).c_str());
+      mvwprintw(compWin, 4, position , getAscii("number", getPositionValue(digit), 4).c_str());
+      mvwprintw(compWin, 5, position , getAscii("number", getPositionValue(digit), 5).c_str());
 
       position = position + 7;
     }
   }
 
-  wrefresh(win);
-
+  wrefresh(compWin);
 }
 
 string Clock::getAscii(string type, int value, int line) {

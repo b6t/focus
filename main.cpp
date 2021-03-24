@@ -13,9 +13,9 @@
 
 #include "Clock.h"
 #include "Progress.h"
+#include "Greeting.h"
 
 using namespace std;
-
 
 int main() {
   initscr();
@@ -26,21 +26,19 @@ int main() {
   getmaxyx(stdscr, yMax, xMax);
 
   int width = 55;
+  int height = 7;
   int start = xMax * .25;
-  WINDOW *clockWin = newwin(7, width, 2, start);
-  WINDOW *progressWin = newwin(7, 30, 2, width + start + 5);
+  int verticalPosition = 2;
+  int componentPadding = 5;
 
-  Clock Clock;
-  Progress Progress;
-
-  refresh();
-  box(clockWin, 0, 0);
-  box(progressWin, 0, 0);
+  Clock Clock(height, width, verticalPosition, start, true);
+  Greeting Greeting("Corey", 3, width + 35, verticalPosition + 7, start, false);
+  Progress Progress(height, 30, verticalPosition, width + start + componentPadding, true);
 
   while (true) {
-    Clock.update();
-    Clock.draw(clockWin);
-    Progress.draw(progressWin);
+    Clock.draw();
+    Progress.draw();
+    Greeting.draw();
 
     // sleep
     std::chrono::milliseconds timespan(1000);
