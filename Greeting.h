@@ -18,7 +18,7 @@ using namespace std;
 // Class 
 class Greeting: public Component {
   public:
-    Greeting(string name, int height, int width, int verticalPos, int horizontalPos, bool outline);
+    Greeting(string title, string name, int height, int width, int verticalPos, int horizontalPos, bool outline);
     void draw();
 
   private:

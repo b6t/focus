@@ -15,7 +15,7 @@
 // Class 
 class Clock: public Component {
   public:
-    Clock(int height, int width, int verticalPos, int horizontalPos, bool outline);
+    Clock(string title, int height, int width, int verticalPos, int horizontalPos, bool outline);
     void draw();
 
   private:
@@ -25,6 +25,7 @@ class Clock: public Component {
     int positionFour;
     int positionFive;
     int positionSix;
+    string _title;
 
     string getAscii(string type, int value, int line);
     int getPositionValue(int position);

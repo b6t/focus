@@ -13,7 +13,7 @@
 
 using namespace std;
 
-Clock::Clock(int height, int width, int verticalPos, int horizontalPos, bool outline) : Component(height, width, verticalPos, horizontalPos, outline) {};
+Clock::Clock(string title, int height, int width, int verticalPos, int horizontalPos, bool outline) : Component(title, height, width, verticalPos, horizontalPos, outline) {};
 
 void Clock::draw() {
   WINDOW *compWin = getWin();
@@ -39,7 +39,6 @@ void Clock::draw() {
         digit-=2;
       }
 
-      mvwprintw(compWin, 0, 1, "Current Time");
       mvwprintw(compWin, 1, position , getAscii("number", getPositionValue(digit), 1).c_str());
       mvwprintw(compWin, 2, position , getAscii("number", getPositionValue(digit), 2).c_str());
       mvwprintw(compWin, 3, position , getAscii("number", getPositionValue(digit), 3).c_str());

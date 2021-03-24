@@ -13,7 +13,7 @@
 
 using namespace std;
 
-Greeting::Greeting(string name, int height, int width, int verticalPos, int horizontalPos, bool outline) : Component(height, width, verticalPos, horizontalPos, outline) {
+Greeting::Greeting(string title, string name, int height, int width, int verticalPos, int horizontalPos, bool outline) : Component(title, height, width, verticalPos, horizontalPos, outline) {
   _name = name;
   _width = width;
 };

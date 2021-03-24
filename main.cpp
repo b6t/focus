@@ -13,6 +13,7 @@
 
 #include "Clock.h"
 #include "Progress.h"
+#include "ProgressBar.h"
 #include "Greeting.h"
 
 using namespace std;
@@ -29,15 +30,17 @@ int main() {
   int height = 7;
   int start = xMax * .25;
   int verticalPosition = 2;
-  int componentPadding = 5;
+  int componentPadding = 3;
 
-  Clock Clock(height, width, verticalPosition, start, true);
-  Greeting Greeting("Corey", 3, width + 35, verticalPosition + 7, start, false);
-  Progress Progress(height, 30, verticalPosition, width + start + componentPadding, true);
+  Clock Clock("Current Local Time", height, width, verticalPosition, start, true);
+  Greeting Greeting("", "Corey", 3, width + 35, verticalPosition + 7, start, false);
+  Progress Progress("Today's Progress",height, 30, verticalPosition, width + start + componentPadding, true);
+  ProgressBar ProgressBar("", height, 8, verticalPosition, width + start + componentPadding + 29, true);
 
   while (true) {
     Clock.draw();
     Progress.draw();
+    ProgressBar.draw();
     Greeting.draw();
 
     // sleep

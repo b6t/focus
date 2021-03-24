@@ -12,12 +12,17 @@
 
 using namespace std;
 
-Component::Component(int height, int width, int verticalPos, int horizontalPos, bool outline) {
+Component::Component(string title, int height, int width, int verticalPos, int horizontalPos, bool outline) {
   win = newwin(height, width, verticalPos, horizontalPos);
   refresh();
   if (outline) {
     box(win, 0, 0);
   }
+
+  if (title != "") {
+    mvwprintw(win, 0, 1, title.c_str());
+  }
+
   wrefresh(win);
 };
 
