@@ -15,7 +15,8 @@
 // Class 
 class ProgressBar: public Progress {
   public:
-    ProgressBar(string title, int height, int width, int verticalPos, int horizontalPos, bool outline);
+    ProgressBar(string title, int periodStart, int periodEnd, int height,
+        int width, int verticalPos, int horizontalPos, bool outline);
     void draw();
 
   private:

@@ -6,18 +6,23 @@
 // File: Clock.cpp
 
 #include <iostream>
+
 #include <ncurses.h>
 
-#include "Component.h"
 #include "Clock.h"
 
 using namespace std;
 
-Clock::Clock(string title, int height, int width, int verticalPos, int horizontalPos, bool outline) : Component(title, height, width, verticalPos, horizontalPos, outline) {};
+Clock::Clock(
+    string title, int height, int width, int verticalPos, int horizontalPos,
+    bool outline):
+  Component(title, height, width, verticalPos, horizontalPos, outline) {};
 
 void Clock::draw() {
   WINDOW *compWin = getWin();
   update();
+
+  string font = "rounded";
   const int start = 2;
   int position = start;
 
@@ -35,29 +40,22 @@ void Clock::draw() {
 
       if (i > 2 && i < 5) {
        digit-=1;
-      } else if (i >=5) {
+      } else if (i >= 5) {
         digit-=2;
       }
+      
+      int value = getPositionValue(digit);
 
-      mvwprintw(compWin, 1, position , getAscii("number", getPositionValue(digit), 1).c_str());
-      mvwprintw(compWin, 2, position , getAscii("number", getPositionValue(digit), 2).c_str());
-      mvwprintw(compWin, 3, position , getAscii("number", getPositionValue(digit), 3).c_str());
-      mvwprintw(compWin, 4, position , getAscii("number", getPositionValue(digit), 4).c_str());
-      mvwprintw(compWin, 5, position , getAscii("number", getPositionValue(digit), 5).c_str());
+      for (int i = 0; i < 5; i++) {
+        mvwprintw(compWin, (i + 1), position , format(font, value, i, "")
+            .c_str());
+      }
 
       position = position + 7;
     }
   }
 
   wrefresh(compWin);
-}
-
-string Clock::getAscii(string type, int value, int line) {
-  if (type == "number") {
-    return getAsciiNumber(value, line);
-  } else {
-    return getAsciiNumber(0, 0);
-  }
 }
 
 int Clock::getPositionValue(int position) {

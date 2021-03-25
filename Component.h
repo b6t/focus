@@ -16,7 +16,8 @@
 // Class 
 class Component: public Time, public Numbers {
   public:
-    Component(string title, int height, int width, int verticalPos, int horizontalPos, bool box);
+    Component(string title, int height, int width, int verticalPos,
+        int horizontalPos, bool box);
     WINDOW *getWin();
     virtual void draw() = 0;
 

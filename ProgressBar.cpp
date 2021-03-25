@@ -12,10 +12,13 @@
 
 using namespace std;
 
-ProgressBar::ProgressBar(string title, int height, int width, int verticalPos, int horizontalPos, bool outline) : Progress(title, height, width, verticalPos, horizontalPos, outline) {
-  _height = height;
-  _width = width;
-};
+ProgressBar::ProgressBar(string title, int periodStart, int periodEnd,
+    int height, int width, int verticalPos, int horizontalPos, bool outline):
+  Progress(title, periodStart, periodEnd, height, width, verticalPos,
+      horizontalPos, outline) {
+    _height = height;
+    _width = width;
+  };
 
 void ProgressBar::draw() {
   WINDOW *compWin = getWin();
@@ -23,14 +26,13 @@ void ProgressBar::draw() {
 
   float fill = ((float)(_height - 2) * (float)(_width - 2)) * getProgress();
   int fillRounded = round(fill);
-
   int level = _height - 2;
   int position = 1;
 
-  //mvwprintw(compWin, level, position, "||||||");
-
   for (int i = 1; i <= fillRounded; i++) {
-    mvwprintw(compWin, level, position, "|");
+    if (level > 0) {
+      mvwprintw(compWin, level, position, "|");
+    }
 
     if (position == _width - 2) {
       position = 1;

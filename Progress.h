@@ -15,7 +15,8 @@
 // Class 
 class Progress: public Component {
   public:
-    Progress(string title, int height, int width, int verticalPos, int horizontalPos, bool outline);
+    Progress(string title, int periodStart, int periodEnd, int height,
+        int width, int verticalPos, int horizontalPos, bool outline);
     void draw();
     float getProgress();
     void updateProgress();

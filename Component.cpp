@@ -12,7 +12,8 @@
 
 using namespace std;
 
-Component::Component(string title, int height, int width, int verticalPos, int horizontalPos, bool outline) {
+Component::Component(string title, int height, int width, int verticalPos,
+    int horizontalPos, bool outline) {
   win = newwin(height, width, verticalPos, horizontalPos);
   refresh();
   if (outline) {

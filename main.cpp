@@ -15,6 +15,7 @@
 #include "Progress.h"
 #include "ProgressBar.h"
 #include "Greeting.h"
+#include "Quit.h"
 
 using namespace std;
 
@@ -22,31 +23,46 @@ int main() {
   initscr();
   noecho();
   curs_set(0); // so cursor doesnt show
+  timeout(0);
 
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
 
+  int loop = true;
   int width = 55;
   int height = 7;
   int start = xMax * .25;
   int verticalPosition = 2;
   int componentPadding = 3;
 
-  Clock Clock("Current Local Time", height, width, verticalPosition, start, true);
-  Greeting Greeting("", "Corey", 3, width + 35, verticalPosition + 7, start, false);
-  Progress Progress("Today's Progress",height, 30, verticalPosition, width + start + componentPadding, true);
-  ProgressBar ProgressBar("", height, 8, verticalPosition, width + start + componentPadding + 29, true);
+  int progressPeriodStart = 0;
+  int progressPeriodEnd = 24;
 
-  while (true) {
+  string greetingName = "Corey";
+
+  Clock Clock("Current Local Time", height, width, verticalPosition, start, true);
+  Greeting Greeting("", greetingName, 3, width + 35, verticalPosition + 7, start, false);
+  Progress Progress("Today's Progress", progressPeriodStart, progressPeriodEnd, height, 30, verticalPosition, width + start + componentPadding, true);
+  ProgressBar ProgressBar("", progressPeriodStart, progressPeriodEnd, height, 8, verticalPosition, width + start + componentPadding + 29, true);
+  Quit Quit("", 3, width + 35, verticalPosition + height + componentPadding, start, false);
+
+  while (loop) {
     Clock.draw();
     Progress.draw();
     ProgressBar.draw();
     Greeting.draw();
+    Quit.draw();
 
-    // sleep
-    std::chrono::milliseconds timespan(1000);
-    std::this_thread::sleep_for(timespan);
+    if (Quit.getQuit()) {
+      loop = false;
+    } else {
+      // sleep
+      std::chrono::milliseconds timespan(1000);
+      std::this_thread::sleep_for(timespan);
+    }
   }
 
   endwin();
+
+  cout << "Thanks for focusing! Good Bye!" << endl;
 }

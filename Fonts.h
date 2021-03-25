@@ -3,22 +3,20 @@
 // Org: Syracuse University
 // Task: Final Project
 // Date: 3/21/21
-// File: Numbers.h
+// File: Fonts.h
 
-#ifndef NUMBERS_H
-#define NUMBERS_H
+#ifndef FONTS_H
+#define FONTS_H
 
 #include <string>
-
-#include "Fonts.h"
 
 using namespace std;
 
 // Class 
-class Numbers: public Fonts {
+class Fonts {
   public:
-    Numbers();
-    string format(string type, int value, int line, string replacement);
+    Fonts();
+    string roundFont(int value, int line);
 };
 
 #endif

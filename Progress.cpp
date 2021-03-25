@@ -12,76 +12,75 @@
 
 using namespace std;
 
-Progress::Progress(string title, int height, int width, int verticalPos, int horizontalPos, bool outline) : Component(title, height, width, verticalPos, horizontalPos, outline) {
-  time_t rawBegin, rawEnd;
-  struct tm *begin, *end;
+Progress::Progress(string title, int periodStart, int periodEnd, int height,
+    int width, int verticalPos, int horizontalPos, bool outline):
+  Component(title, height, width, verticalPos, horizontalPos, outline) {
+    time_t rawBegin, rawEnd;
+    struct tm *begin, *end;
 
-  time(&rawBegin);
-  begin = localtime(&rawBegin);
+    time(&rawBegin);
+    begin = localtime(&rawBegin);
 
-  begin->tm_sec = 0;
-  begin->tm_min = 0;
-  begin->tm_hour = 9;
-  begin->tm_mday = getDay();
-  begin->tm_mon = getMonth();
-  begin->tm_year = getYear();
+    begin->tm_sec = 0;
+    begin->tm_min = 0;
+    begin->tm_hour = periodStart;
+    begin->tm_mday = getDay();
+    begin->tm_mon = getMonth();
+    begin->tm_year = getYear();
 
-  _startUnixTime = mktime(begin);
+    _startUnixTime = mktime(begin);
 
-  time(&rawEnd);
-  end = localtime(&rawEnd);
+    time(&rawEnd);
+    end = localtime(&rawEnd);
 
-  end->tm_sec = 0;
-  end->tm_min = 0;
-  end->tm_hour = 18;
-  end->tm_mday = getDay();
-  end->tm_mon = getMonth();
-  end->tm_year = getYear();
+    end->tm_sec = 0;
+    end->tm_min = 0;
+    end->tm_hour = periodEnd;
+    end->tm_mday = getDay();
+    end->tm_mon = getMonth();
+    end->tm_year = getYear();
 
-  _endUnixTime = mktime(end);
+    _endUnixTime = mktime(end);
 
-  updateProgress();
-};
+    updateProgress();
+  };
 
 void Progress::draw() {
   WINDOW *compWin = getWin();
   updateProgress();
-  // mvwprintw(compWin, 0, 0, to_string(_progress).c_str());
-
-  // cout << "start " << startUnixTime << endl;
-  // cout << "end " << endUnixTime << endl;
-  // cout << "current " << getUnixTime() << endl;
-  // cout << "get month " << getMonth() << endl;
-  // cout << "get year " << getYear() << endl;
-  // cout << "get day " << getDay() << endl;
+ 
   int rounded = round(_progress * 100);
   string progressString = to_string(rounded);
   string decimalString = to_string(_progress * 100);
 
+  string font = "rounded";
   int position = 2;
   int rise = 0;
   if (rounded / 100 %10 != 0) {
-    mvwprintw(compWin, rise + 1, position, getAscii("number", rounded / 100 %10, 1).c_str());
-    mvwprintw(compWin, rise + 2, position, getAscii("number", rounded / 100 %10, 2).c_str());
-    mvwprintw(compWin, rise + 3, position, getAscii("number", rounded / 100 %10, 3).c_str());
-    mvwprintw(compWin, rise + 4, position, getAscii("number", rounded / 100 %10, 4).c_str());
-    mvwprintw(compWin, rise + 5, position, getAscii("number", rounded / 100 %10, 5).c_str());
+    int hundreds = rounded / 100 %10; 
+
+    for (int i = 0; i < 5; i++) {
+      mvwprintw(compWin, rise + (i + 1), position, format(font, hundreds, i, "")
+          .c_str());
+    }
 
     position += 7;
   }
 
-  mvwprintw(compWin, rise + 1, position, getAscii("number", rounded / 10 %10, 1).c_str());
-  mvwprintw(compWin, rise + 2, position, getAscii("number", rounded / 10 %10, 2).c_str());
-  mvwprintw(compWin, rise + 3, position, getAscii("number", rounded / 10 %10, 3).c_str());
-  mvwprintw(compWin, rise + 4, position, getAscii("number", rounded / 10 %10, 4).c_str());
-  mvwprintw(compWin, rise + 5, position, getAscii("number", rounded / 10 %10, 5).c_str());
+  int tens = rounded / 10 %10;
 
+  for (int i = 0; i < 5; i++) {
+    mvwprintw(compWin, rise + (i + 1), position, format(font, tens, i, "")
+        .c_str());
+  }
+
+  int ones = rounded %10;
   position += 7;
-  mvwprintw(compWin, rise + 1, position, getAscii("number", rounded %10, 1).c_str());
-  mvwprintw(compWin, rise + 2, position, getAscii("number", rounded %10, 2).c_str());
-  mvwprintw(compWin, rise + 3, position, getAscii("number", rounded %10, 3).c_str());
-  mvwprintw(compWin, rise + 4, position, getAscii("number", rounded %10, 4).c_str());
-  mvwprintw(compWin, rise + 5, position, getAscii("number", rounded %10, 5).c_str());
+
+  for (int i = 0; i < 5; i++) {
+    mvwprintw(compWin, rise + (i + 1), position, format(font, ones, i, "")
+        .c_str());
+  }
 
   position += 7;
   mvwprintw(compWin, rise + 2, position, "() /");
@@ -92,17 +91,10 @@ void Progress::draw() {
   wrefresh(compWin);
 }
 
-string Progress::getAscii(string type, int value, int line) {
-  if (type == "number") {
-    return getAsciiNumber(value, line);
-  } else {
-    return getAsciiNumber(0, 0);
-  }
-}
-
 void Progress::updateProgress() {
   updateTime();
-  _progress = (float)(getUnixTime() - _startUnixTime) / (float)(_endUnixTime - _startUnixTime);
+  _progress = (float)(getUnixTime() - _startUnixTime)/
+    (float)(_endUnixTime - _startUnixTime);
 }
 
 float Progress::getProgress() {
