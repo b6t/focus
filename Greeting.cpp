@@ -5,12 +5,13 @@
 // Date: 3/1/21
 // File: Greeting.cpp
 
-#include <iostream>
+#include <string>
+
 #include <ncurses.h>
 
 #include "Greeting.h"
 
-using namespace std;
+using std::string;
 
 Greeting::Greeting(string title, string name, int height, int width,
     int verticalPos, int horizontalPos, bool outline):

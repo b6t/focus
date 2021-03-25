@@ -12,11 +12,26 @@
 
 #include "Progress.h"
 
-// Class 
+// Class ProgressBar inherits from Class Progress
 class ProgressBar: public Progress {
   public:
+    // Constructor
+    // inputs:
+    // title - title of the window
+    // periodStart - hour of day that the progress window begins
+    // periodEnd - hour of day that the progress window ends
+    // height - row height of the window
+    // width - column width of the window
+    // verticalPos - vertical position of the component window withing the
+    // main window
+    // horizontalPos - horizontal position of the component window withing the
+    // main window
+    // outline - a boolean indicating if the component window should be outlined
     ProgressBar(string title, int periodStart, int periodEnd, int height,
         int width, int verticalPos, int horizontalPos, bool outline);
+
+    // Virtual from Component class
+    // A function responsible for displaying the component on the screen
     void draw();
 
   private:

@@ -7,19 +7,33 @@
 #ifndef GREETING_H
 #define GREETING_H
 
-#include <iostream>
+#include <string>
 
 #include <ncurses.h>
 
 #include "Component.h"
 
-using namespace std;
+using std::string;
 
-// Class 
+// Class Greeting inherits from Class Component
 class Greeting: public Component {
   public:
+  	// Constructor
+    // inputs:
+    // title - title of the window
+    // name - the name of the individual to be greeted
+    // height - row height of the window
+    // width - column width of the window
+    // verticalPos - vertical position of the component window withing the
+    // main window
+    // horizontalPos - horizontal position of the component window withing the
+    // main window
+    // outline - a boolean indicating if the component window should be outlined
     Greeting(string title, string name, int height, int width, int verticalPos,
         int horizontalPos, bool outline);
+
+    // Virtual from Component class
+    // A function responsible for displaying the component on the screen
     void draw();
 
   private:

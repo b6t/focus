@@ -5,19 +5,25 @@
 // Date: 3/1/21
 // File: Clock.cpp
 
-#include <iostream>
+#include <string>
 
 #include <ncurses.h>
 
 #include "Clock.h"
 
-using namespace std;
+using std::string;
 
+// Constructor Clock
+// A constructor that instantiates a clock object then passes the input on
+// to the inherited component class
 Clock::Clock(
     string title, int height, int width, int verticalPos, int horizontalPos,
     bool outline):
   Component(title, height, width, verticalPos, horizontalPos, outline) {};
 
+// Function draw
+// A virtual function from the Components class that is used to draw the 
+// window and its contents to the users terminal
 void Clock::draw() {
   WINDOW *compWin = getWin();
   update();
@@ -58,6 +64,10 @@ void Clock::draw() {
   wrefresh(compWin);
 }
 
+// Function getPostionValue
+// A function that retrieves the value of the digit of a digital clock.
+// For example, if the time is 1650 an input of 1 returns 1, 2 returns 6,
+// 3 returns 5 and so on
 int Clock::getPositionValue(int position) {
   if (position == 1) {
 
@@ -83,6 +93,10 @@ int Clock::getPositionValue(int position) {
   }
 }
 
+// Function update
+// A function that uses the updateTime function inherited from the 
+// Time class to update the stored time data members. Then parses
+// the time into its position
 void Clock::update() {
   updateTime();
   positionOne = getHours()/ 10 %10;

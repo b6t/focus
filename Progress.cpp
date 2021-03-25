@@ -5,12 +5,14 @@
 // Date: 3/1/21
 // File: Progress.cpp
 
-#include <iostream>
+#include <string>
+
 #include <ncurses.h>
 
 #include "Progress.h"
 
-using namespace std;
+using std::string;
+using std::to_string;
 
 Progress::Progress(string title, int periodStart, int periodEnd, int height,
     int width, int verticalPos, int horizontalPos, bool outline):

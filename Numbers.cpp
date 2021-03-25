@@ -6,11 +6,12 @@
 // File: Numbers.cpp
 
 #include <algorithm>
-#include <iostream>
+#include <string>
 
 #include "Numbers.h"
 
-using namespace std;
+using std::string;
+using std::to_string;
 
 Numbers::Numbers () {}
 

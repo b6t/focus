@@ -5,14 +5,17 @@
 // Date: 3/1/21
 // File: Fonts.cpp
 
-#include <iostream>
+#include <string>
 
 #include "Fonts.h"
 
-using namespace std;
+using std::string;
 
 Fonts::Fonts () {}
 
+// Function roundFont
+// A 2d array representation of a 0-9 in ascii art style font
+// For example see: https://gist.github.com/b6t/f47ae240f98b3cdc4da56b00963a61c1
 string Fonts::roundFont(int value, int line) {
   string n[ 10 ][ 5 ] = {
     { " xxxx ", "xx  xx", "xx  xx", "xx  xx", " xxxx " },

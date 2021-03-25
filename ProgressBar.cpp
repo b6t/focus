@@ -5,12 +5,12 @@
 // Date: 3/1/21
 // File: ProgressBar.cpp
 
-#include <iostream>
+#include <string>
 #include <ncurses.h>
 
 #include "ProgressBar.h"
 
-using namespace std;
+using std::string;
 
 ProgressBar::ProgressBar(string title, int periodStart, int periodEnd,
     int height, int width, int verticalPos, int horizontalPos, bool outline):

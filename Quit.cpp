@@ -5,12 +5,12 @@
 // Date: 3/1/21
 // File: Quit.cpp
 
-#include <iostream>
+#include <string>
 #include <ncurses.h>
 
 #include "Quit.h"
 
-using namespace std;
+using std::string;
 
 Quit::Quit(string title, int height, int width,
     int verticalPos, int horizontalPos, bool outline):

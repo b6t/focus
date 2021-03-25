@@ -6,11 +6,11 @@
 // File: Time.cpp
 
 #include <ctime>
-#include <iostream>
+#include <string>
 
 #include "Time.h"
 
-using namespace std;
+using std::string;
 
 Time::Time () {
   updateTime();

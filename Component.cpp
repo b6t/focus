@@ -5,13 +5,11 @@
 // Date: 3/1/21
 // File: Component.cpp
 
-#include <iostream>
 #include <ncurses.h>
 
 #include "Component.h"
 
-using namespace std;
-
+// Constuctor Component
 Component::Component(string title, int height, int width, int verticalPos,
     int horizontalPos, bool outline) {
   win = newwin(height, width, verticalPos, horizontalPos);
@@ -27,6 +25,7 @@ Component::Component(string title, int height, int width, int verticalPos,
   wrefresh(win);
 };
 
+// Function getWin, getter
 WINDOW *Component::getWin() {
 
   return win;
