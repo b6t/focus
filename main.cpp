@@ -36,7 +36,7 @@ int main() {
   int componentPadding = 3;
 
   int progressPeriodStart = 0;
-  int progressPeriodEnd = 24;
+  int progressPeriodEnd = 18;
 
   string greetingName = "Corey";
 

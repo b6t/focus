@@ -49,7 +49,7 @@ void Progress::draw() {
   WINDOW *compWin = getWin();
   updateProgress();
  
-  int rounded = round(_progress * 100);
+  int rounded = (round(_progress * 100) < 0) ? 0 :round(_progress * 100);
   string progressString = to_string(rounded);
   string decimalString = to_string(_progress * 100);
 
