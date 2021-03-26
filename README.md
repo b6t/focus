@@ -1,5 +1,7 @@
 # Focus
 
+![example image](img/example.png)
+
 ## Introduction
 
 Focus is a terminal based time management tool that tracks your days progress.
