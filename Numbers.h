@@ -1,10 +1,3 @@
-// Name: Corey Beaumont
-// Course: CIS 544-M401 Object Oriented Programming in C++
-// Org: Syracuse University
-// Task: Final Project
-// Date: 3/1/21
-// File: Numbers.h
-
 #ifndef NUMBERS_H
 #define NUMBERS_H
 
@@ -17,8 +10,8 @@ using std::string;
 // Class Numbers inherits from Class Fonts
 class Numbers: public Fonts {
   public:
-  	// Constructor Numbers
-  	// Instantiates an object from which ascii art style numbers are returned
+    // Constructor Numbers
+    // Instantiates an object from which ascii art style numbers are returned
     Numbers();
 
     // Function format

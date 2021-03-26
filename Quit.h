@@ -1,10 +1,3 @@
-// Name: Corey Beaumont
-// Course: CIS 544-M401 Object Oriented Programming in C++
-// Org: Syracuse University
-// Task: Final Project
-// Date: 3/1/21
-// File: Quit.h
-
 #ifndef QUIT_H
 #define QUIT_H
 
@@ -19,7 +12,7 @@ using std::string;
 // Class Quit inherits from Class Component
 class Quit: public Component {
   public:
-  	 // Constructor
+    // Constructor
     // inputs:
     // title - title of the window
     // height - row height of the window

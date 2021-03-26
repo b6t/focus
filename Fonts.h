@@ -1,10 +1,3 @@
-// Name: Corey Beaumont
-// Course: CIS 544-M401 Object Oriented Programming in C++
-// Org: Syracuse University
-// Task: Final Project
-// Date: 3/1/21
-// File: Fonts.h
-
 #ifndef FONTS_H
 #define FONTS_H
 
@@ -15,9 +8,9 @@ using std::string;
 // Class 
 class Fonts {
   public:
-  	// Constructor Fonts
-  	// Allows for the use of different fonts by exposing a function for
-  	// the font
+    // Constructor Fonts
+    // Allows for the use of different fonts by exposing a function for
+    // the font
     Fonts();
 
     // Function font
