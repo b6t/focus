@@ -29,6 +29,11 @@ Contributing is fairly straight forward. As shown in the diagram below there are
 
 ![example image](img/class-structure.png)
 
+## Ideas
+- Time based inspirational quotes
+- Pomodoro Timer
+- Simple Todo List
+- Local storage
 
 ## Credit
 - [Momentum](https://momentumdash.com)
