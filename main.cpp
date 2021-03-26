@@ -17,16 +17,75 @@
 #include "ProgressBar.h"
 #include "Quit.h"
 
+using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
 
+
+// Function prompt
+// Prompt for string input
+string prompt(string type) {
+  string input;
+  bool cont = true;
+
+  while (cont) {
+    cout << "Please enter your " << type << ": ";
+    cin >> input;
+
+    if (cin.fail()) {
+      cin.clear();
+      cout << "Try again...\n\n";
+    } else {
+      cont = false;
+    }
+  }
+
+  return input;
+}
+
+// Function promt
+// Overloaded fucntion that promts for ints with allowance for accepting a
+// range. This is primarily suited for accepting hours.
+int prompt(string type, int prior) {
+  int input;
+  bool cont = true;
+  int bottom = (prior == -1) ? 0 : prior + 1;
+
+  while (cont) {
+    cout << "Please enter the " << type << " hour (" << bottom << " - 24): ";
+    cin >> input;
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (cin.fail() || input < bottom || input > 24) {
+      cin.clear();
+      cout << "Try again...\n\n";
+    } else {
+      cont = false;
+    }
+  }
+
+  return input;
+}
+
 // Function: main
-// There are 3 primary section of main: 1) Window creation,
-// 2) component loading, 3) clock refreshing
+// There are 4 primary section of main: 1) Initial input, 2) Window creation,
+// 3) component loading, 4) clock refreshing
 int main() {
-  // Section 1: ncurses initialization
+  // Section 1: Initial input
+  cout << "Hi, welcome to Focus!\n"; 
+  // Input for greeting component
+  string greetingName = prompt("name");
+
+  cout << "Select a period of time by providing a beginning and end hour\n";
+  // Component loading
+  // Input for progress and progress bar classes.
+  // unit: hours
+  int progressPeriodStart = prompt("beginning", -1);
+  int progressPeriodEnd = prompt("ending", progressPeriodStart);
+
+  // Section 2: ncurses initialization
   // Initializes the ncurses screen
   initscr();
   // Blocks input from showing on screen
@@ -55,16 +114,7 @@ int main() {
   int componentPadding = 3;
   // End window creation setup
 
-  // Component loading
-  // Input for progress and progress bar classes.
-  // unit: hours
-  int progressPeriodStart = 9;
-  int progressPeriodEnd = 18;
-
-  // Input for greeting component
-  string greetingName = "Corey";
-
-  // Invoking the components
+  // Section 3: Invoking the components
   Clock Clock("Current Local Time", height, width, verticalPosition, start, true);
   Greeting Greeting("", greetingName, 3, width + 35, verticalPosition + 7, start, false);
   Progress Progress("Today's Progress", progressPeriodStart, progressPeriodEnd, height, 30, verticalPosition, width + start + componentPadding, true);
@@ -79,7 +129,7 @@ int main() {
   components.push_back(&Quit);
   // End component loading section
 
-  // Clock tick section
+  // Section 4: Clock tick
   // Here the component vector is drawn to its specified window using the
   // virtual draw method
   while (loop) {

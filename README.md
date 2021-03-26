@@ -27,6 +27,9 @@ There are four primary components to Focus:
 
 Contributing is fairly straight forward. As shown in the diagram below there are two base classes the are inherited by the Component class. The Component class is responsible for creating the ncurses window based on the provided constructor data. The Component class implements a virtual function called draw(). The draw function is responsible for displaying the component on the users terminal. The Component class should be inherited by a component rather than directly accessing it from main.d
 
+![example image](img/class-structure.png)
+
+
 ## Credit
 - [Momentum](https://momentumdash.com)
 - [ncurses](https://invisible-mirror.net/archives/ncurses/)
