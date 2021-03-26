@@ -4,6 +4,7 @@
 // Task: Final Project
 // Date: 3/1/21
 // File: Quit.h
+
 #ifndef QUIT_H
 #define QUIT_H
 

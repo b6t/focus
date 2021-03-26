@@ -18,7 +18,7 @@ using std::string;
 // Class Greeting inherits from Class Component
 class Greeting: public Component {
   public:
-  	// Constructor
+    // Constructor
     // inputs:
     // title - title of the window
     // name - the name of the individual to be greeted
