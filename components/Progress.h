@@ -3,7 +3,7 @@
 
 #include <ncurses.h>
 
-#include "Component.h"
+#include "../classes/Component.h"
 
 // Class Progress inherits from Class Component
 class Progress: public Component {

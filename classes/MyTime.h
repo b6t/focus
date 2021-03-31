@@ -8,12 +8,12 @@
 using std::string;
 
 // Base Class Time
-class Time {
+class MyTime {
   public:
     // Constructor Time
     // Initilizes the current local time and stores each element of the
     // timestamp to private data members
-    Time();
+    MyTime();
 
     // Function updateTime
     // A function that updates the time and the private data members

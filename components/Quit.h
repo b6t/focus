@@ -5,7 +5,7 @@
 
 #include <ncurses.h>
 
-#include "Component.h"
+#include "../classes/Component.h"
 
 using std::string;
 
