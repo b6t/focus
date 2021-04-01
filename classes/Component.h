@@ -4,10 +4,10 @@
 #include <ncurses.h>
 
 #include "Numbers.h"
-#include "Time.h"
+#include "MyTime.h"
 
 // Class Component inherits from Class Time and Class Numbers
-class Component: public Time, public Numbers {
+class Component: public MyTime, public Numbers {
   public:
     // Constructor
     // inputs:
@@ -24,7 +24,7 @@ class Component: public Time, public Numbers {
 
     // Virtual function draw
     // A required function implementation for child classes
-	virtual void draw() = 0;
+  virtual void draw() = 0;
 
     // Function getWin
     // An ncurses function that fetches the created component window

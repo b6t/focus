@@ -4,11 +4,11 @@
 #include <thread>
 #include <vector>
 
-#include "Clock.h"
-#include "Greeting.h"
-#include "Progress.h"
-#include "ProgressBar.h"
-#include "Quit.h"
+ #include "components/Clock.h"
+ #include "components/Greeting.h"
+ #include "components/Progress.h"
+ #include "components/ProgressBar.h"
+ #include "components/Quit.h"
 
 using std::cin;
 using std::cout;

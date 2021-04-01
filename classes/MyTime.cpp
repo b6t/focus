@@ -1,15 +1,15 @@
 #include <ctime>
 #include <string>
 
-#include "Time.h"
+#include "MyTime.h"
 
 using std::string;
 
-Time::Time () {
+MyTime::MyTime () {
   updateTime();
 }
 
-void Time::updateTime() {
+void MyTime::updateTime() {
   time_t unixTimeNow = time(0);
   tm *ltm = localtime(&unixTimeNow);
 
@@ -24,7 +24,7 @@ void Time::updateTime() {
   calculateTimeOfDay();
 }
 
-void Time::calculateTimeOfDay() {
+void MyTime::calculateTimeOfDay() {
   if (hours >= 5 && hours < 12) {
     timeOfDay = "Morning";
   } else if (hours >= 12 && hours < 17) {
@@ -36,42 +36,42 @@ void Time::calculateTimeOfDay() {
   }
 }
 
-int Time::getYear() {
+int MyTime::getYear() {
 
   return year;
 }
 
-int Time::getMonth() {
+int MyTime::getMonth() {
 
   return month;
 }
 
-int Time::getDay() {
+int MyTime::getDay() {
 
   return day;
 }
 
-int Time::getHours() {
+int MyTime::getHours() {
 
   return hours;
 }
 
-int Time::getMinutes() {
+int MyTime::getMinutes() {
 
   return minutes;
 }
 
-int Time::getSeconds() {
+int MyTime::getSeconds() {
 
   return seconds;
 }
 
-int Time::getUnixTime() {
+int MyTime::getUnixTime() {
 
   return unixTime;
 }
 
-string Time::getTimeOfDay() {
+string MyTime::getTimeOfDay() {
 
   return timeOfDay;
 }
