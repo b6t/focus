@@ -108,17 +108,17 @@ int main() {
   // End window creation setup
 
   // Section 3: Invoking the components
-  // Clock Clock("Current Local Time", height, width, verticalPosition, start, true);
-  // Greeting Greeting("", greetingName, 3, width + 35, verticalPosition + 7, start, false);
-  // Progress Progress("Today's Progress", progressPeriodStart, progressPeriodEnd, height, 30, verticalPosition, width + start + componentPadding, true);
-  // ProgressBar ProgressBar("", progressPeriodStart, progressPeriodEnd, height, 8, verticalPosition, width + start + componentPadding + 29, true);
+  Clock Clock("Current Local Time", height, width, verticalPosition, start, true);
+  Greeting Greeting("", greetingName, 3, width + 35, verticalPosition + 7, start, false);
+  Progress Progress("Today's Progress", progressPeriodStart, progressPeriodEnd, height, 30, verticalPosition, width + start + componentPadding, true);
+  ProgressBar ProgressBar("", progressPeriodStart, progressPeriodEnd, height, 8, verticalPosition, width + start + componentPadding + 29, true);
   Quit Quit("", 3, width + 35, verticalPosition + height + componentPadding, start, false);
 
   // Pushing the components to the vector
-  // components.push_back(&Clock);
-  // components.push_back(&Greeting);
-  // components.push_back(&Progress);
-  // components.push_back(&ProgressBar);
+  components.push_back(&Clock);
+  components.push_back(&Greeting);
+  components.push_back(&Progress);
+  components.push_back(&ProgressBar);
   components.push_back(&Quit);
   // End component loading section
 
